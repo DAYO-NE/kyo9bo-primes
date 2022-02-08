@@ -1,6 +1,19 @@
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+{-# HLINT ignore "Use /=" #-}
 module Primes where
 
-primes::[Int]
-primes=[1..]
+isPrime :: Int -> Maybe Bool 
+isPrime n | n < 0 = Nothing
+  | n >= last primes = Nothing
+  | otherwise = Just (n `elem` primes)
+
+primes :: [Int]
+primes = [1..10000]
+
+
+sieve :: [Int]->[Int]
+sieve [] = []
+sieve(nextPrime : rest) = nextPrime : sieve noFactors
+ where noFactors = filter(not.(==0).(`mod`nextPrime)) rest
 
 
